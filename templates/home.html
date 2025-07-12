@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Swap Platform</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .search-container {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 2rem;
+    }
+
+    .search-container select,
+    .search-container input {
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      background-color: #2c2c2c;
+      color: white;
+      outline: none;
+    }
+
+    .search-container button {
+      background: linear-gradient(to right, #28a745, #2ecc71);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-container button:hover {
+      background: #249c56;
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .profile-card {
+      background-color: #2a2a2a;
+      padding: 1.2rem;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+    }
+
+    .profile-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .profile-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(to right, #00b4db, #0083b0);
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skills-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .skill-pill {
+      background-color: #00b894;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #fff;
+      white-space: nowrap;
+    }
+
+    .profile-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .rating {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .request-btn {
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .request-btn:hover {
+      background: #0080ff;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pagination button {
+      background-color: #333;
+      border: 1px solid #555;
+      color: white;
+      padding: 0.4rem 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .pagination button:hover {
+      background-color: #555;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #00c853;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 999;
+      display: none;
+    }
+
+    #toast.show {
+      display: block;
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-right {
+        align-items: flex-start;
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  {% include "navbar.html" %}
+
+  <div class="search-container">
+    <select id="filterAvailability">
+      <option value="all">All</option>
+      <option value="available">Available</option>
+      <option value="busy">Busy</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search skills or names..." />
+    <button onclick="renderProfiles()">Search</button>
+  </div>
+
+  <div class="card-container" id="profileList"></div>
+
+  <div class="pagination">
+    <button>&lt;</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>&gt;</button>
+  </div>
+
+  <div id="toast">Request sent</div>
+
+  <script>
+    let profiles = [];
+    let isAuthenticated = false;
+    let currentUserId = null;
+
+    // Check if user is authenticated and get user ID
+    async function checkAuthStatus() {
+      try {
+        const response = await fetch('/api/profile');
+        if (response.ok) {
+          isAuthenticated = true;
+          const data = await response.json();
+          currentUserId = data.user && data.user.id ? data.user.id : null;
+        } else {
+          isAuthenticated = false;
+          currentUserId = null;
+        }
+      } catch (error) {
+        isAuthenticated = false;
+        currentUserId = null;
+      }
+    }
+
+    async function loadProfiles() {
+      try {
+        const response = await fetch('/api/profiles');
+        if (!response.ok) {
+          throw new Error('Failed to load profiles');
+        }
+        profiles = await response.json();
+        renderProfiles();
+      } catch (error) {
+        console.error('Error loading profiles:', error);
+        document.getElementById("profileList").innerHTML = `<p style="text-align:center; color: #ff6b6b;">Error loading profiles. Please try again.</p>`;
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => { toast.style.display = "none"; }, 500);
+      }, 2000);
+    }
+
+    function redirectToLogin() {
+      showToast("Please login first to send requests!");
+      setTimeout(() => {
+        window.location.href = '/login';
+      }, 1500);
+    }
+
+    function renderProfiles() {
+      const profileList = document.getElementById("profileList");
+      profileList.innerHTML = "";
+
+      const searchInput = document.getElementById("searchInput").value.toLowerCase();
+      const filterAvailability = document.getElementById("filterAvailability").value;
+
+      const filtered = profiles.filter(profile => {
+        // Hide current user's profile if logged in
+        if (currentUserId && profile.user_id == currentUserId) return false;
+        const nameMatch = profile.name && profile.name.toLowerCase().includes(searchInput);
+        const skillsMatch = profile.skills_offered && profile.skills_offered.toLowerCase().includes(searchInput);
+        const availabilityMatch = filterAvailability === "all" || profile.availability === filterAvailability;
+        
+        return (nameMatch || skillsMatch) && availabilityMatch;
+      });
+
+      if (filtered.length === 0) {
+        profileList.innerHTML = `<p style="text-align:center;">No profiles found.</p>`;
+        return;
+      }
+
+      filtered.forEach(profile => {
+        const card = document.createElement("div");
+        card.className = "profile-card";
+
+        const skillsOffered = profile.skills_offered ? profile.skills_offered.split(',').map(s => s.trim()) : [];
+        const skillsHTML = skillsOffered.map(skill => `<div class="skill-pill">${skill}</div>`).join('');
+
+        card.innerHTML = `
+          <div class="profile-left">
+            <div class="profile-img" style="background-image: url('${profile.photo_url || 'https://via.placeholder.com/60'}'); background-size: cover;"></div>
+            <div class="profile-info">
+              <div><strong>${profile.name || 'Unnamed User'}</strong></div>
+              <div>Available</div>
+              <div class="skills-wrapper">${skillsHTML}</div>
+            </div>
+          </div>
+          <div class="profile-right">
+            <div class="rating">Rating: ${profile.rating ? '⭐'.repeat(Math.round(profile.rating)) : '⭐️ N/A'}</div>
+            <button class="request-btn" data-user-id="${profile.user_id}">Request</button>
+          </div>
+        `;
+
+        const requestBtn = card.querySelector(".request-btn");
+        requestBtn.addEventListener("click", async () => {
+          // Check if user is authenticated before sending request
+          if (!isAuthenticated) {
+            redirectToLogin();
+            return;
+          }
+
+          try {
+            const response = await fetch('/api/swap_request', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                to_user_id: profile.user_id,
+                offered_skill: 'Your Skill', // This should be dynamic based on current user's skills
+                wanted_skill: skillsOffered[0] || 'Any Skill',
+                message: 'I would like to swap skills with you!'
+              })
+            });
+
+            if (response.ok) {
+              showToast("Request sent successfully!");
+              requestBtn.innerText = "✅ Requested";
+              requestBtn.disabled = true;
+            } else if (response.status === 401) {
+              // User is not authenticated
+              isAuthenticated = false;
+              redirectToLogin();
+            } else {
+              showToast("Failed to send request");
+            }
+          } catch (error) {
+            console.error('Error sending request:', error);
+            showToast("Error sending request");
+          }
+        });
+
+        profileList.appendChild(card);
+      });
+    }
+
+    // Add event listeners for search and filter
+    document.getElementById("searchInput").addEventListener("input", renderProfiles);
+    document.getElementById("filterAvailability").addEventListener("change", renderProfiles);
+
+    // Initialize page
+    async function initPage() {
+      await checkAuthStatus();
+      await loadProfiles();
+    }
+
+    window.onload = initPage;
+  </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+body {
+  background: linear-gradient(120deg, #232526, #414345);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+  color: #f3f3f3;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+
+.login-box {
+  background: rgba(34, 34, 34, 0.95);
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  width: 350px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: #bdbdbd;
+  margin-bottom: 0.2rem;
+}
+
+.form-group input {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #232526;
+  color: #f3f3f3;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.form-group input:focus {
+  border: 1.5px solid #6a82fb;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.5rem;
+}
+
+.form-actions button {
+  background: linear-gradient(90deg, #6a82fb, #fc5c7d);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.form-actions button:hover {
+  background: linear-gradient(90deg, #fc5c7d, #6a82fb);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.forgot-link {
+  color: #90caf9;
+  text-align: right;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgot-link:hover {
+  color: #fc5c7d;
+}
+
+.google-login {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  background: #fff;
+  color: #232526;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+
+.google-btn:hover {
+  background: #fc5c7d;
+  color: #fff;
+  transform: translateY(-2px) scale(1.03);
+}
+
+@media (max-width: 500px) {
+  .login-box {
+    width: 98vw;
+    padding: 1.2rem 0.5rem;
+  }
+} 

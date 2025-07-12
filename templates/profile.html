@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile - Skill Swap</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #232526, #414345);
+      color: #f3f3f3;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1f1f1f;
+      color: #ffffff;
+      padding: 10px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    .navbar a {
+      color: #90caf9;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      color: #ffffff;
+    }
+    .profile-card {
+      background: rgba(34, 34, 34, 0.98);
+      max-width: 480px;
+      margin: 48px auto 0 auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      padding: 2.5rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .profile-photo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .profile-photo img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 3px solid #6a82fb;
+      object-fit: cover;
+      box-shadow: 0 2px 12px rgba(106,130,251,0.15);
+    }
+    .profile-photo .user-name {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #fff;
+      margin-top: 0.7rem;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+    .profile-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .info-section {
+      background: #232526;
+      border-radius: 12px;
+      padding: 1.1rem 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      margin-bottom: 0.5rem;
+    }
+    .info-section strong {
+      color: #6a82fb;
+      font-size: 1.08rem;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .skill-pill {
+      background: linear-gradient(90deg, #6a82fb, #fc5c7d);
+      color: #fff;
+      padding: 0.3rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      box-shadow: 0 1px 4px rgba(106,130,251,0.10);
+    }
+    .bio-text {
+      margin-top: 0.5rem;
+      color: #e0e0e0;
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+    .rating-list {
+      margin-top: 0.5rem;
+      color: #ffd700;
+      font-size: 1.1rem;
+      list-style: none;
+      padding-left: 0;
+    }
+    .edit-btn, .save-btn, .cancel-btn {
+      background: linear-gradient(90deg, #6a82fb, #fc5c7d);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.3rem;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 0.3rem 0.5rem 0.3rem 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .edit-btn:hover, .save-btn:hover {
+      background: linear-gradient(90deg, #fc5c7d, #6a82fb);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .cancel-btn {
+      background: #444;
+      color: #fff;
+    }
+    .cancel-btn:hover {
+      background: #222;
+    }
+    .edit-form {
+      width: 100%;
+      margin-top: 1.2rem;
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .edit-form input, .edit-form textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #232526;
+      color: #f3f3f3;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .edit-form input:focus, .edit-form textarea:focus {
+      border: 1.5px solid #6a82fb;
+    }
+    .edit-form textarea {
+      height: 80px;
+      resize: vertical;
+    }
+    .success-message {
+      background: #4caf50;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 10px 0;
+      display: none;
+      text-align: center;
+    }
+    .error-message {
+      background: #f44336;
+      color: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 10px 0;
+      display: none;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .profile-card {
+        padding: 1.2rem 0.5rem;
+        width: 98vw;
+      }
+      .profile-photo img {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div><strong>Skill Swap Platform</strong></div>
+    <div>
+      <a href="/">Home</a>
+      <a href="/request">Request</a>
+      <a href="/profile">Profile</a>
+      <a href="/create_account">Account</a>
+      <a href="/login">Login</a>
+    </div>
+  </div>
+  <div class="profile-card">
+    <div class="profile-photo">
+      <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile">
+      <div class="user-name" id="profileName">Loading...</div>
+    </div>
+    <div class="profile-info">
+      <div class="success-message" id="successMessage">Profile updated successfully!</div>
+      <div class="error-message" id="errorMessage">Error updating profile.</div>
+      <div class="info-section">
+        <strong>Skills Offered:</strong>
+        <div class="skills-list" id="skillsOffered">-</div>
+        <button class="edit-btn" onclick="toggleEdit()">Edit Profile</button>
+      </div>
+      <div class="info-section">
+        <strong>Skills Wanted:</strong>
+        <div class="skills-list" id="skillsWanted">-</div>
+      </div>
+      <div class="info-section">
+        <strong>Bio:</strong>
+        <div class="bio-text" id="userBio">-</div>
+      </div>
+      <div class="info-section">
+        <strong>Rating & Feedback:</strong>
+        <ul class="rating-list" id="ratingList">
+          <li>⭐ New user</li>
+        </ul>
+      </div>
+      <!-- Edit Form -->
+      <form class="edit-form" id="editForm" onsubmit="event.preventDefault(); saveProfile();">
+        <label for="editSkillsOffered">Skills Offered (comma-separated):</label>
+        <input type="text" id="editSkillsOffered" placeholder="e.g., Python, JavaScript, Design">
+        <label for="editSkillsWanted">Skills Wanted (comma-separated):</label>
+        <input type="text" id="editSkillsWanted" placeholder="e.g., Cooking, Photography, Music">
+        <label for="editBio">Bio:</label>
+        <textarea id="editBio" placeholder="Tell us about yourself..."></textarea>
+        <div>
+          <button class="save-btn" type="submit">Save Profile</button>
+          <button class="cancel-btn" type="button" onclick="cancelEdit()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    let currentProfile = null;
+    async function loadProfile() {
+      try {
+        const response = await fetch('/api/profile');
+        if (!response.ok) {
+          throw new Error('Failed to load profile');
+        }
+        const data = await response.json();
+        currentProfile = data;
+        displayProfile(data);
+      } catch (error) {
+        console.error('Error loading profile:', error);
+        document.getElementById('profileName').textContent = 'Error loading profile';
+      }
+    }
+    function displayProfile(data) {
+      const user = data.user;
+      const profile = data.profile;
+      document.getElementById('profileName').textContent = user.name || 'Unnamed User';
+      document.getElementById('profileImage').src = user.photo_url || 'https://via.placeholder.com/150';
+      // Skills Offered
+      if (profile && profile.skills_offered) {
+        const skills = profile.skills_offered.split(',').map(s => s.trim()).filter(Boolean);
+        document.getElementById('skillsOffered').innerHTML = skills.length ? skills.map(skill => `<span class='skill-pill'>${skill}</span>`).join('') : '-';
+      } else {
+        document.getElementById('skillsOffered').innerHTML = '-';
+      }
+      // Skills Wanted
+      if (profile && profile.skills_wanted) {
+        const skills = profile.skills_wanted.split(',').map(s => s.trim()).filter(Boolean);
+        document.getElementById('skillsWanted').innerHTML = skills.length ? skills.map(skill => `<span class='skill-pill'>${skill}</span>`).join('') : '-';
+      } else {
+        document.getElementById('skillsWanted').innerHTML = '-';
+      }
+      // Bio
+      document.getElementById('userBio').textContent = (profile && profile.bio) ? profile.bio : '-';
+    }
+    function toggleEdit() {
+      const editForm = document.getElementById('editForm');
+      const isVisible = editForm.style.display === 'flex';
+      if (!isVisible) {
+        editForm.style.display = 'flex';
+        if (currentProfile && currentProfile.profile) {
+          document.getElementById('editSkillsOffered').value = currentProfile.profile.skills_offered || '';
+          document.getElementById('editSkillsWanted').value = currentProfile.profile.skills_wanted || '';
+          document.getElementById('editBio').value = currentProfile.profile.bio || '';
+        }
+      } else {
+        editForm.style.display = 'none';
+      }
+    }
+    function cancelEdit() {
+      document.getElementById('editForm').style.display = 'none';
+    }
+    async function saveProfile() {
+      const skillsOffered = document.getElementById('editSkillsOffered').value;
+      const skillsWanted = document.getElementById('editSkillsWanted').value;
+      const bio = document.getElementById('editBio').value;
+      try {
+        const response = await fetch('/api/profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            skills_offered: skillsOffered,
+            skills_wanted: skillsWanted,
+            bio: bio
+          })
+        });
+        if (!response.ok) {
+          throw new Error('Failed to save profile');
+        }
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('editForm').style.display = 'none';
+        await loadProfile();
+        setTimeout(() => {
+          document.getElementById('successMessage').style.display = 'none';
+        }, 3000);
+      } catch (error) {
+        console.error('Error saving profile:', error);
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+        setTimeout(() => {
+          document.getElementById('errorMessage').style.display = 'none';
+        }, 3000);
+      }
+    }
+    window.onload = loadProfile;
+  </script>
+</body>
+</html>
