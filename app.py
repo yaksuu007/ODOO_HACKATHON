@@ -1,27 +1,42 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, url_for, session, render_template
+from flask_dance.contrib.google import make_google_blueprint, google
+import os
 
 app = Flask(__name__)
+app.secret_key = "super_secret_key" 
 
-# Route for login page (home)
-@app.route('/')
-def login():
-    return render_template('login.html')
+# client_secret.json
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  
+google_bp = make_google_blueprint(
+    client_secrets_file="client_secret.json",
+    scope=["profile", "email"],
+    redirect_to="profile"
+)
+app.register_blueprint(google_bp, url_prefix="/login")
 
-# Route for profile edit page
-@app.route('/profile')
+
+@app.route("/")
+def home():
+    return render_template("login.html")
+
+
+@app.route("/profile")
 def profile():
-    return render_template('profile.html')
+    if not google.authorized:
+        return redirect(url_for("google.login"))
 
-# Route for connections page
-@app.route('/connections')
-def connections():
-    return '<h1>Connections Page</h1>'
+    resp = google.get("/oauth2/v2/userinfo")
+    assert resp.ok, resp.text
+    user_info = resp.json()
 
-# Optional login redirect route
-@app.route('/login')
-def login_redirect():
-    return render_template('login.html')
+    return render_template("profile.html", user=user_info)
 
-# Run Flask server
-if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=9000, debug=True)
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
+
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=9000, debug=True)
