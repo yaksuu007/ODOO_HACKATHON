@@ -1,10 +1,95 @@
-<!-- templates/navbar.html -->
-<nav class="navbar">
-  <div class="navbar-left">
-    <a href="/">Home</a>
-    <a href="/request">Request</a>
-    <a href="/connections">Connection</a>
-    <a href="/profile">Profile Edit</a>
-    <a href="/login">Login</a>
-  </div>
-</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Navbar - Skill Swap</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .navbar {
+      background: linear-gradient(to right, #231942, #5e548e, #9f86c0, #be95c4, #e0b1cb);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .brand-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar-right {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .navbar-right a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-right a:hover {
+      color: #f0f0f0;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .navbar-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="navbar"> 
+    <div class="navbar-left">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" />
+      <span class="brand-name">Skill Swap Platform</span>
+    </div>
+    <div class="navbar-right">
+      <a href="/">Home</a>
+      <a href="/request">Request</a>
+      <a href="/profile">Profile Edit</a>
+      <a href="/create_account">Account</a>
+      <a href="{{ url_for('google.login') }}">Login</a>
+    </div>
+  </nav>
+
+</body>
+</html>

@@ -4,47 +4,53 @@ import os
 import json
 
 app = Flask(__name__)
-app.secret_key = "super_secret_key"  # use secure key in production
+app.secret_key = "super_secret_key"  # Replace with a secure secret in production
 
-# Allow insecure transport for local dev (don't use in production)
+
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-# === Load Google credentials from client_secret.json ===
+# ✅ Load client credentials from JSON
+if not os.path.exists("client_secret.json"):
+    raise FileNotFoundError("❌ 'client_secret.json' not found in project directory.")
+
 with open("client_secret.json", "r") as f:
     client_data = json.load(f)["web"]
 
+# ✅ Google OAuth Blueprint
 google_bp = make_google_blueprint(
     client_id=client_data["client_id"],
     client_secret=client_data["client_secret"],
-    scope=["profile", "email"],
-    redirect_url="/profile"
+    redirect_url="/profile",
+    scope=[
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+        "openid"
+    ]
 )
 app.register_blueprint(google_bp, url_prefix="/login")
 
-# === Routes ===
+# ✅ Home Route
 @app.route("/")
 def home():
-    return render_template("login.html")
+    return render_template("home.html")
 
+@app.route('/profile_view/<name>')
+def profile_view(name):
+    return render_template("profile.html", name=name)
 
+# ✅ Profile Route
 @app.route("/profile")
 def profile():
     if not google.authorized:
         return redirect(url_for("google.login"))
 
     resp = google.get("/oauth2/v2/userinfo")
-    assert resp.ok, resp.text
-    user_info = resp.json()
+    if not resp.ok:
+        return f"❌ Failed to fetch user info: {resp.text}"
 
+    user_info = resp.json()
     return render_template("profile.html", user=user_info)
 
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for("home"))
-
-
-# === Run app ===
+# ✅ Run Flask ONLY on 127.0.0.1 and port 7000
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=9000, debug=True)
+    app.run(host="127.0.0.1", port=7000, debug=True)
