@@ -1,20 +1,27 @@
 from flask import Flask, redirect, url_for, session, render_template
 from flask_dance.contrib.google import make_google_blueprint, google
 import os
+import json
 
 app = Flask(__name__)
-app.secret_key = "super_secret_key" 
+app.secret_key = "super_secret_key"  # use secure key in production
 
-# client_secret.json
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"  
+# Allow insecure transport for local dev (don't use in production)
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+# === Load Google credentials from client_secret.json ===
+with open("client_secret.json", "r") as f:
+    client_data = json.load(f)["web"]
+
 google_bp = make_google_blueprint(
-    client_secrets_file="client_secret.json",
+    client_id=client_data["client_id"],
+    client_secret=client_data["client_secret"],
     scope=["profile", "email"],
-    redirect_to="profile"
+    redirect_url="/profile"
 )
 app.register_blueprint(google_bp, url_prefix="/login")
 
-
+# === Routes ===
 @app.route("/")
 def home():
     return render_template("login.html")
@@ -38,5 +45,6 @@ def logout():
     return redirect(url_for("home"))
 
 
+# === Run app ===
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=9000, debug=True)
