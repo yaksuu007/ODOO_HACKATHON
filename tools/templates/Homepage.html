@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Swap Platform</title>
+  <style>
+    /* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111;
+  color: #f2f2f2;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #111;
+  padding: 20px 30px;
+  border-bottom: 1px solid #555;
+}
+
+.navbar-left {
+  display: flex;
+  gap: 25px;
+}
+
+.navbar-left a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.navbar-left a:hover {
+  border-color: white;
+  background-color: white;
+  color: #111;
+}
+
+/* Login Page */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 80px;
+}
+
+.login-box {
+  background-color: #222;
+  padding: 40px;
+  border: 2px solid #888;
+  border-radius: 16px;
+  width: 350px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  background-color: #111;
+  border: 1px solid #888;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+/* Buttons */
+.form-actions {
+  text-align: center;
+}
+
+.form-actions button {
+  padding: 10px 30px;
+  font-size: 16px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.form-actions button:hover {
+  background-color: white;
+  color: #111;
+  transition: 0.3s;
+}
+
+/* Forgot link */
+.forgot-link {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  color: #4da3ff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* Google Login */
+.google-login {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.google-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4285F4;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+}
+
+.google-btn:hover {
+  background-color: #3367D6;
+  transition: 0.3s ease-in-out;
+}
+
+/* Profile Page Styles */
+.container {
+  background: #222;
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="file"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  background-color: #111;
+  color: white;
+  font-size: 16px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.tag span {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-switch input {
+  transform: scale(1.2);
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button.save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+button.discard-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+button.save-btn,
+button.discard-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile-photo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-photo img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #007bff;
+}
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    .navbar {
+      background-color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .navbar h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .navbar button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .search-container {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 2rem;
+    }
+
+    .search-container select,
+    .search-container input {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .search-container button {
+      background-color: #28a745;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .profile-card {
+      display: flex;
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .profile-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .profile-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: gray;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skills-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .skill-pill {
+      background-color: #00b894;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .profile-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .profile-right .rating {
+      font-size: 0.9rem;
+    }
+
+    .profile-right .request-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pagination button {
+      background-color: transparent;
+      border: 1px solid #555;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .pagination button:hover {
+      background-color: #444;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #00c853;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 999;
+      display: none;
+    }
+
+    #toast.show {
+      display: block;
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-right {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <!-- templates/navbar.html -->
+{% include 'navbar.html' %}
+
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <select id="filterAvailability">
+      <option value="all">All</option>
+      <option value="available">Available</option>
+      <option value="busy">Busy</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search skills or names..." />
+    <button onclick="renderProfiles()">Search</button>
+  </div>
+
+  <!-- Profile Cards -->
+  <div class="card-container" id="profileList">
+    <!-- JS will inject cards here -->
+  </div>
+
+  
+
+  <!-- Toast -->
+  <div id="toast">Request sent</div>
+
+ <div class="card-container" id="profileList">
+  {% for profile in profiles %}
+    <div class="profile-card">
+      <div class="profile-left">
+        <div class="profile-img"></div>
+        <div class="profile-info">
+          <div><strong>{{ profile.name }}</strong></div>
+          <div>{{ profile.availability or 'Unknown' }}</div>
+          <div class="skills-wrapper">
+            {% for skill in profile.skillsOffered %}
+              <div class="skill-pill">{{ skill }}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="profile-right">
+        <div class="rating">Rating: {{ profile.rating or 'N/A' }}</div>
+        <button class="request-btn" onclick="showToast('{{ profile.name }} requested')">Request</button>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2000);
+  }
+</script>
+<!-- Pagination Placeholder -->
+  <div class="pagination">
+    <button>&lt;</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>&gt;</button>
+  </div>
+
+</body>
+</html>

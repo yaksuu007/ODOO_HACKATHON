@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<head>
+  <h1>Connections</h1>
+  <style>
+    body {
+  background-color: #1a1a1a; /* deep charcoal */
+  color: #eee; /* softer text for contrast */
+}
+
+
+    .table-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #2a2a2a;
+  color: white;
+}
+
+.profile-table th, .profile-table td {
+  padding: 1rem;
+  border: 1px solid #444;
+  text-align: left;
+}
+
+.profile-table th {
+  background-color: #333;
+  font-weight: bold;
+}
+
+.skill-pill {
+  background-color: #00b894;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: white;
+  margin-right: 0.3rem;
+  display: inline-block;
+}
+
+.request-btn {
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.request-btn:hover {
+  background: #0080ff;
+}
+  </style>
+</head>
+
+
+<div class="table-container">
+  <table class="profile-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Availability</th>
+        <th>Skills Offered</th>
+        <th>Rating</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for profile in profiles %}
+        <tr>
+          <td>{{ profile.name }}</td>
+          <td>{{ profile.availability or 'Unknown' }}</td>
+          <td>
+            {% for skill in profile.skillsOffered %}
+              <span class="skill-pill">{{ skill }}</span>
+            {% endfor %}
+          </td>
+          <td>{{ profile.rating or 'N/A' }}</td>
+          <td>
+            <button class="request-btn" onclick="showToast('{{ profile.name }} requested')">Request</button>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+<script>
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2000);
+  }
+</script>

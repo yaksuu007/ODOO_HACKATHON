@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile - Skill Swap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: #f2f2f2;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background-color: #111;
+      padding: 20px 30px;
+      border-bottom: 1px solid #555;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-left {
+      display: flex;
+      gap: 25px;
+    }
+
+    .navbar-left a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 14px;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-left a:hover {
+      border-color: white;
+      background-color: white;
+      color: #111;
+    }
+
+    .google-login {
+      text-align: right;
+    }
+
+    .google-btn {
+      background-color: #4285F4;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .google-btn:hover {
+      background-color: #3367D6;
+    }
+
+    .container {
+      background: #222;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .field {
+      margin-bottom: 15px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #888;
+      border-radius: 8px;
+      background-color: #111;
+      color: white;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      background-color: #007bff;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tag span {
+      margin-left: 8px;
+      cursor: pointer;
+    }
+
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-switch input {
+      transform: scale(1.2);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button.save-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    button.discard-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    button.save-btn,
+    button.discard-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .profile-photo {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-photo img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #007bff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="navbar-left">
+    <a href="/">Home</a>
+    <a href="/swap">Request</a>
+    <a href="/connections">Connection</a>
+    <a href="/profile">Profile Edit</a>
+    <a href="/login">Login</a>
+    </div>
+    <div class="google-login">
+      <button class="google-btn" onclick="googleLogin()">Login with Google</button>
+    </div>
+  </div>
+
+  <div class="container">
+  <h2>Create Profile</h2>
+
+  <form action="/create" method="post">
+    <div class="field">
+      <label>Name</label>
+      <input type="text" id="name" name="name" placeholder="name" required>
+    </div>
+
+    <div class="field">
+  <label>Password</label>
+  <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+</div>
+
+    <div class="field">
+  <label>Rating</label>
+  <input type="text" id="rating" name="rating" placeholder="Enter your rating (e.g. 4.3/5)" required>
+</div>
+
+    
+     <div class="field">
+      <label>Email Address</label>
+      <input type="text" id="email"  name="email" placeholder="you@example.com">
+    </div>
+
+   
+  
+      <div class="field">
+  <label>Gender</label>
+  <select id="gender" name="gender">
+    <option value="" disabled selected>Select your gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+    <option value="nonbinary">Non-binary</option>
+    <option value="prefer_not">Prefer not to say</option>
+  </select>
+</div>
+
+
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="text" id="phone" name="phone" placeholder="+91-XXXXXXXXXX">
+    </div>
+
+      
+
+    <div class="field">
+      <label>Location (optional)</label>
+      <input type="text" id="location" name="location" placeholder="City or Country">
+    </div>
+
+    <div class="field">
+      <label>Skills Offered</label>
+      <div class="tags-container" id="skillsOfferedList"></div>
+      <input type="text" id="skillOfferedInput" name="skillsOffered" placeholder="Add a skill and press Enter">
+    </div>
+
+    <div class="field">
+      <label>Skills Wanted</label>
+      <div class="tags-container" id="skillsWantedList"></div>
+      <input type="text" id="skillWantedInput" name="skillsWanted" placeholder="Add a skill and press Enter">
+    </div>
+
+    <div class="field">
+      <label>Availability</label>
+      <select id="availability" name="availability">
+        <option value="weekends">Weekends</option>
+        <option value="evenings">Evenings</option>
+        <option value="weekdays">Weekdays</option>
+        <option value="anytime">Anytime</option>
+      </select>
+    </div>
+
+    <div class="field toggle-switch">
+      <label>Public Profile</label>
+      <input type="checkbox" id="profilePublic" name="profilePublic" checked>
+    </div>
+
+    <div class="field profile-photo">
+      <label>Profile Photo</label>
+      <input type="file" id="photoInput" accept="image/*">
+      <img id="photoPreview" src="https://via.placeholder.com/80" alt="Profile Photo">
+    </div>
+
+    <div class="buttons">
+      <button class="discard-btn" type="reset">Discard</button>
+      <button class="save-btn" type="submit">Save</button>
+    </div>
+  </form>
+</div>
+
+    
+
+    
+
+  <script>
+    const skillsOfferedList = document.getElementById("skillsOfferedList");
+    const skillsWantedList = document.getElementById("skillsWantedList");
+
+    const skillsOffered = [];
+    const skillsWanted = [];
+
+    document.getElementById("skillOfferedInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const value = this.value.trim();
+        if (value && !skillsOffered.includes(value)) {
+          skillsOffered.push(value);
+          updateTags(skillsOffered, skillsOfferedList, skillsOffered);
+          this.value = "";
+        }
+      }
+    });
+
+    document.getElementById("skillWantedInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const value = this.value.trim();
+        if (value && !skillsWanted.includes(value)) {
+          skillsWanted.push(value);
+          updateTags(skillsWanted, skillsWantedList, skillsWanted);
+          this.value = "";
+        }
+      }
+    });
+
+    function updateTags(skillArray, container, referenceArray) {
+      container.innerHTML = "";
+      skillArray.forEach((skill, index) => {
+        const tag = document.createElement("div");
+        tag.className = "tag";
+        tag.innerHTML = `${skill} <span onclick="removeTag(${index}, '${referenceArray === skillsOffered ? 'offered' : 'wanted'}')">&times;</span>`;
+        container.appendChild(tag);
+      });
+    }
+
+    function removeTag(index, type) {
+      if (type === "offered") {
+        skillsOffered.splice(index, 1);
+        updateTags(skillsOffered, skillsOfferedList, skillsOffered);
+      } else {
+        skillsWanted.splice(index, 1);
+        updateTags(skillsWanted, skillsWantedList, skillsWanted);
+      }
+    }
+
+    document.getElementById("photoInput").addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        document.getElementById("photoPreview").src = url;
+      }
+    });
+
+    function saveProfile() {
+      const profile = {
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        name: document.getElementById("name").value,
+        location: document.getElementById("location").value,
+        skillsOffered: skillsOffered,
+        skillsWanted: skillsWanted,
+        availability: document.getElementById("availability").value,
+        profilePublic: document.getElementById("profilePublic").checked
+      };
+
+      console.log("Saving profile...", profile);
+      alert("Profile saved successfully! (In real app, this will go to Firebase)");
+    }
+
+    function discardChanges() {
+      if (confirm("Are you sure you want to discard all changes?")) {
+        window.location.reload();
+      }
+    }
+
+    function googleLogin() {
+      alert("Google login coming soon! (Hook with Firebase Auth)");
+    }
+  </script>
+</body>
+</html>
