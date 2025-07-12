@@ -1,95 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Navbar - Skill Swap</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-    }
+<!-- ✅ Final Navbar Component -->
+<nav class="navbar">
+  <div class="navbar-left">
+    <img src="static/images/logo.png" alt="Logo" class="logo" />
+    <span class="brand-name">Skill Swap</span>
+  </div>
+  <div class="navbar-right">
+    <a href="#" onclick="navigateTo('home.html')">Home</a>
+    <a href="#" onclick="navigateTo('request.html')">Request</a>
+    <a href="#" onclick="navigateTo('profile.html')">Profile</a>
+    <a href="#" onclick="navigateTo('create_account.html')">Account</a>
+    <a href="#" onclick="navigateTo('login.html')">Login</a>
+  </div>
+</nav>
 
+<style>
+  .navbar {
+    background: linear-gradient(to right, #2a0845, #6441a5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ffffff55;
+  }
+
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.6px;
+  }
+
+  .navbar-right {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar-right a {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+  }
+
+  .navbar-right a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
     .navbar {
-      background: linear-gradient(to right, #231942, #5e548e, #9f86c0, #be95c4, #e0b1cb);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .navbar-left {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .logo {
-      width: 36px;
-      height: 36px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-
-    .brand-name {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #ffffff;
-      letter-spacing: 0.5px;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .navbar-right {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
     }
 
     .navbar-right a {
-      text-decoration: none;
-      color: #ffffff;
-      font-weight: 500;
-      transition: color 0.3s ease;
+      width: 100%;
+      padding: 0.75rem 1rem;
     }
+  }
+</style>
 
-    .navbar-right a:hover {
-      color: #f0f0f0;
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
-      .navbar-right {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.6rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- ✅ Navbar -->
-  <nav class="navbar"> 
-    <div class="navbar-left">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo" />
-      <span class="brand-name">Skill Swap Platform</span>
-    </div>
-    <div class="navbar-right">
-      <a href="/">Home</a>
-      <a href="/request">Request</a>
-      <a href="/profile">Profile Edit</a>
-      <a href="/create_account">Account</a>
-      <a href="{{ url_for('google.login') }}">Login</a>
-    </div>
-  </nav>
-
-</body>
-</html>
+<script>
+  function navigateTo(page) {
+    window.location.href = page;
+  }
+</script>
