@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Swap Platform</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    .navbar {
+      background-color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .navbar h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .navbar button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .search-container {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 2rem;
+    }
+
+    .search-container select,
+    .search-container input {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .search-container button {
+      background-color: #28a745;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .profile-card {
+      display: flex;
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .profile-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .profile-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: gray;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .skills-wrapper {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .skill-pill {
+      background-color: #00b894;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .profile-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .profile-right .rating {
+      font-size: 0.9rem;
+    }
+
+    .profile-right .request-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pagination button {
+      background-color: transparent;
+      border: 1px solid #555;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .pagination button:hover {
+      background-color: #444;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #00c853;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 999;
+      display: none;
+    }
+
+    #toast.show {
+      display: block;
+      opacity: 1;
+    }
+
+    @media (max-width: 600px) {
+      .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-right {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Skill Swap Platform</h1>
+    <button>Login</button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <select id="filterAvailability">
+      <option value="all">All</option>
+      <option value="available">Available</option>
+      <option value="busy">Busy</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search skills or names..." />
+    <button onclick="renderProfiles()">Search</button>
+  </div>
+
+  <!-- Profile Cards -->
+  <div class="card-container" id="profileList">
+    <!-- JS will inject cards here -->
+  </div>
+
+  <!-- Pagination Placeholder -->
+  <div class="pagination">
+    <button>&lt;</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>&gt;</button>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast">Request sent</div>
+
+  <script>
+    // Sample profile data
+    const profiles = [
+      {
+        name: "Marc Dano",
+        availability: "available",
+        skills: ["Web Dev", "Game Dev", "UI/UX"],
+        rating: "2.8/5"
+      },
+      {
+        name: "Riya Mehta",
+        availability: "busy",
+        skills: ["Data Science", "Python"],
+        rating: "4.3/5"
+      },
+      {
+        name: "Arjun Rao",
+        availability: "available",
+        skills: ["Cybersecurity", "Linux", "Networking"],
+        rating: "3.9/5"
+      },
+      {
+        name: "Kavita Jain",
+        availability: "available",
+        skills: ["AI", "ML", "React"],
+        rating: "4.5/5"
+      }
+    ];
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      toast.style.display = "block";
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 500);
+      }, 2000);
+    }
+
+    function renderProfiles() {
+      const profileList = document.getElementById("profileList");
+      profileList.innerHTML = "";
+
+      const searchInput = document.getElementById("searchInput").value.toLowerCase();
+      const filterAvailability = document.getElementById("filterAvailability").value;
+
+      const filteredProfiles = profiles.filter(profile => {
+        const matchesNameOrSkill =
+          profile.name.toLowerCase().includes(searchInput) ||
+          profile.skills.some(skill => skill.toLowerCase().includes(searchInput));
+        const matchesAvailability =
+          filterAvailability === "all" || profile.availability === filterAvailability;
+
+        return matchesNameOrSkill && matchesAvailability;
+      });
+
+      if (filteredProfiles.length === 0) {
+        profileList.innerHTML = `<p style="text-align:center;">No profiles found.</p>`;
+        return;
+      }
+
+      filteredProfiles.forEach(profile => {
+        const card = document.createElement("div");
+        card.className = "profile-card";
+
+        const skillsHTML = profile.skills.map(skill => `<div class="skill-pill">${skill}</div>`).join('');
+
+        card.innerHTML = `
+          <div class="profile-left">
+            <div class="profile-img"></div>
+            <div class="profile-info">
+              <div><strong>${profile.name}</strong></div>
+              <div>${profile.availability === "available" ? "Still Available" : "Busy"}</div>
+              <div class="skills-wrapper">${skillsHTML}</div>
+            </div>
+          </div>
+          <div class="profile-right">
+            <div class="rating">Rating: ${profile.rating}</div>
+            <button class="request-btn">Request</button>
+          </div>
+        `;
+
+        const requestBtn = card.querySelector(".request-btn");
+        requestBtn.addEventListener("click", () => {
+          showToast("Request sent");
+          requestBtn.innerText = "✅ Requested";
+          requestBtn.disabled = true;
+        });
+
+        profileList.appendChild(card);
+      });
+    }
+
+    window.onload = renderProfiles;
+  </script>
+</body>
+</html>
