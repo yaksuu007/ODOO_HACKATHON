@@ -29,7 +29,7 @@ google_bp = make_google_blueprint(
 )
 app.register_blueprint(google_bp, url_prefix="/login")
 
-# ✅ Home Route
+#  Home Route
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -38,7 +38,7 @@ def home():
 def profile_view(name):
     return render_template("profile.html", name=name)
 
-# ✅ Profile Route
+# Profile Route
 @app.route("/profile")
 def profile():
     if not google.authorized:
@@ -46,11 +46,11 @@ def profile():
 
     resp = google.get("/oauth2/v2/userinfo")
     if not resp.ok:
-        return f"❌ Failed to fetch user info: {resp.text}"
+        return f" Failed to fetch user info: {resp.text}"
 
     user_info = resp.json()
     return render_template("profile.html", user=user_info)
 
-# ✅ Run Flask ONLY on 127.0.0.1 and port 7000
+#  Run Flask ONLY on 127.0.0.1 and port 7000
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=7000, debug=True)
