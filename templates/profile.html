@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile - Skill Swap</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
+</head>
+<body>
+  {% include 'navbar.html' %}
+
+  <div class="container">
+    <h2>Edit Profile</h2>
+
+    <div class="field">
+      <label>Name</label>
+      <input type="text" id="name" placeholder="Your name">
+    </div>
+
+    <div class="field">
+      <label>Location (optional)</label>
+      <input type="text" id="location" placeholder="City or Country">
+    </div>
+
+    <div class="field">
+      <label>Skills Offered</label>
+      <div class="tags-container" id="skillsOfferedList"></div>
+      <input type="text" id="skillOfferedInput" placeholder="Add a skill and press Enter">
+    </div>
+
+    <div class="field">
+      <label>Skills Wanted</label>
+      <div class="tags-container" id="skillsWantedList"></div>
+      <input type="text" id="skillWantedInput" placeholder="Add a skill and press Enter">
+    </div>
+
+    <div class="field">
+      <label>Availability</label>
+      <select id="availability">
+        <option value="weekends">Weekends</option>
+        <option value="evenings">Evenings</option>
+        <option value="weekdays">Weekdays</option>
+        <option value="anytime">Anytime</option>
+      </select>
+    </div>
+
+    <div class="field toggle-switch">
+      <label>Public Profile</label>
+      <input type="checkbox" id="profilePublic" checked>
+    </div>
+
+    <div class="field profile-photo">
+      <label>Profile Photo</label>
+      <input type="file" id="photoInput" accept="image/*">
+      <img id="photoPreview" src="https://via.placeholder.com/80" alt="Profile Photo">
+    </div>
+
+    <div class="buttons">
+      <button class="discard-btn" onclick="discardChanges()">Discard</button>
+      <button class="save-btn" onclick="saveProfile()">Save</button>
+    </div>
+  </div>
+
+  <script>
+    const skillsOfferedList = document.getElementById("skillsOfferedList");
+    const skillsWantedList = document.getElementById("skillsWantedList");
+
+    const skillsOffered = [];
+    const skillsWanted = [];
+
+    document.getElementById("skillOfferedInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const value = this.value.trim();
+        if (value && !skillsOffered.includes(value)) {
+          skillsOffered.push(value);
+          updateTags(skillsOffered, skillsOfferedList, skillsOffered);
+          this.value = "";
+        }
+      }
+    });
+
+    document.getElementById("skillWantedInput").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const value = this.value.trim();
+        if (value && !skillsWanted.includes(value)) {
+          skillsWanted.push(value);
+          updateTags(skillsWanted, skillsWantedList, skillsWanted);
+          this.value = "";
+        }
+      }
+    });
+
+    function updateTags(skillArray, container, referenceArray) {
+      container.innerHTML = "";
+      skillArray.forEach((skill, index) => {
+        const tag = document.createElement("div");
+        tag.className = "tag";
+        tag.innerHTML = `${skill} <span onclick="removeTag(${index}, '${referenceArray === skillsOffered ? 'offered' : 'wanted'}')">&times;</span>`;
+        container.appendChild(tag);
+      });
+    }
+
+    function removeTag(index, type) {
+      if (type === "offered") {
+        skillsOffered.splice(index, 1);
+        updateTags(skillsOffered, skillsOfferedList, skillsOffered);
+      } else {
+        skillsWanted.splice(index, 1);
+        updateTags(skillsWanted, skillsWantedList, skillsWanted);
+      }
+    }
+
+    document.getElementById("photoInput").addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        document.getElementById("photoPreview").src = url;
+      }
+    });
+
+    function saveProfile() {
+      const profile = {
+        name: document.getElementById("name").value,
+        location: document.getElementById("location").value,
+        skillsOffered: skillsOffered,
+        skillsWanted: skillsWanted,
+        availability: document.getElementById("availability").value,
+        profilePublic: document.getElementById("profilePublic").checked
+      };
+
+      console.log("Saving profile...", profile);
+      alert("Profile saved successfully! (In real app, this will go to Firebase)");
+    }
+
+    function discardChanges() {
+      if (confirm("Are you sure you want to discard all changes?")) {
+        window.location.reload(); // simple reset
+      }
+    }
+  </script>
+</body>
+</html>
