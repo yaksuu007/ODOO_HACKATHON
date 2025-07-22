@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap Progress Bar Example</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="container mt-5 mb-5">
+    <h2 class="text-primary mb-4">Bootstrap Progress Bars</h2>
+    <!-- 'text-primary': blue heading -->
+    <!-- 'mb-4': bottom margin -->
+
+    <!-- Basic Progress Bar -->
+    <h5 class="text-muted mb-2">Basic Progress</h5>
+    <div class="progress mb-4">
+      <!-- 'progress': wrapper for progress bars -->
+      <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        25%
+        <!-- 'width: 25%': sets fill level -->
+        <!-- 'aria-*': accessibility attributes -->
+      </div>
+    </div>
+
+    <!-- Progress Bar with Background Color -->
+    <h5 class="text-muted mb-2">Colored Progress</h5>
+    <div class="progress mb-4">
+      <div class="progress-bar bg-success" style="width: 60%">60%</div>
+      <!-- 'bg-success': green background -->
+    </div>
+
+    <!-- Striped Progress Bar -->
+    <h5 class="text-muted mb-2">Striped Progress</h5>
+    <div class="progress mb-4">
+      <div class="progress-bar progress-bar-striped" style="width: 45%">45%</div>
+      <!-- 'progress-bar-striped': adds diagonal stripes -->
+    </div>
+
+    <!-- Animated Progress Bar -->
+    <h5 class="text-muted mb-2">Animated Progress</h5>
+    <div class="progress mb-4">
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" style="width: 80%">
+        80%
+      </div>
+      <!-- 'progress-bar-animated': animates stripes movement -->
+      <!-- 'bg-warning': yellow background -->
+    </div>
+
+    <!-- Multiple Segments in a Single Bar -->
+    <h5 class="text-muted mb-2">Multiple Segments</h5>
+    <div class="progress">
+      <div class="progress-bar bg-success" style="width: 35%">35%</div>
+      <div class="progress-bar bg-info text-dark" style="width: 25%">25%</div>
+      <div class="progress-bar bg-danger" style="width: 20%">20%</div>
+      <!-- Each 'progress-bar' is stacked inside same 'progress' div -->
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Navbar</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar with default Bootstrap typography -->
+  <!-- Default font-family is applied throughout. -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- Brand name: Uses heading style (usually slightly bolder) -->
+      <a class="navbar-brand fw-bold fs-4" href="#">MySite</a>
+
+      <!-- Toggle button for mobile view -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <!-- fs-6: slightly smaller font size; fw-medium: medium weight -->
+          <li class="nav-item">
+            <a class="nav-link active fs-6 fw-medium" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fs-6 text-uppercase" href="#">About</a> <!-- Uppercase text -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fs-6 fst-italic" href="#">Services</a> <!-- Italic style -->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fs-6 fw-light" href="#">Contact</a> <!-- Light font weight -->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container mt-5">
+    <h2>Navbar Typography Explained</h2>
+    <p>
+      The navbar brand uses <code>fw-bold</code> and <code>fs-4</code> for a bold, slightly larger appearance.  
+      Navigation links use <code>fs-6</code> for smaller size and other typography utilities like <code>text-uppercase</code>,
+      <code>fst-italic</code>, and <code>fw-light</code> to demonstrate customization.
+    </p>
+  </div>
+
+  <!-- Bootstrap JS Bundle (for toggling navbar) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

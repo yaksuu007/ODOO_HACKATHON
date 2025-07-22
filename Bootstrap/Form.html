@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Forms - Explained</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Main container for page content with vertical margins -->
+  <div class="container mt-5 mb-5">
+    
+    <!-- Page heading with Bootstrap text color and margin utilities -->
+    <h2 class="text-primary mb-4">
+      Bootstrap Form Elements Demo
+      <!-- 'text-primary' gives Bootstrap's blue color -->
+      <!-- 'mb-4' adds margin-bottom for spacing under the heading -->
+    </h2>
+
+    <!-- Begin form section with padding, border, background and shadow -->
+    <form class="p-4 border rounded shadow-sm bg-light">
+      <!-- 'p-4' adds padding inside the form (1.5rem on all sides) -->
+      <!-- 'border' adds a thin gray border -->
+      <!-- 'rounded' gives the container slightly rounded corners -->
+      <!-- 'shadow-sm' gives a subtle shadow for elevation -->
+      <!-- 'bg-light' applies a light gray background -->
+
+      <!-- Full Name Input -->
+      <div class="mb-3">
+        <!-- 'mb-3' gives margin-bottom of 1rem for spacing between form groups -->
+        <label for="fullName" class="form-label fw-semibold">
+          Full Name
+          <!-- 'form-label' styles label for input fields -->
+          <!-- 'fw-semibold' makes text semi-bold (500 weight) -->
+        </label>
+        <input type="text" class="form-control" id="fullName" placeholder="Enter your name">
+        <!-- 'form-control' styles input with full width, padding, and border -->
+        <!-- 'placeholder' gives hint text inside input -->
+      </div>
+
+      <!-- Email Input -->
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email address</label>
+        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+        <!-- 'form-text' used below for additional helper text -->
+        <div class="form-text text-muted">
+          We'll never share your email with anyone else.
+          <!-- 'text-muted' gives a lighter gray tone to text -->
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+      </div>
+
+      <!-- Country Selection Dropdown -->
+      <div class="mb-3">
+        <label for="country" class="form-label fw-semibold">Country</label>
+        <select class="form-select" id="country">
+          <!-- 'form-select' styles native select dropdown to match Bootstrap inputs -->
+          <option selected>Choose...</option>
+          <option>India</option>
+          <option>USA</option>
+          <option>UK</option>
+        </select>
+      </div>
+
+      <!-- Radio Buttons for Gender -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Gender</label>
+        <!-- Group 1: Male -->
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gender" id="male" checked>
+          <!-- 'form-check-input' styles radio buttons -->
+          <label class="form-check-label" for="male">Male</label>
+          <!-- 'form-check-label' styles the label aligned next to input -->
+        </div>
+        <!-- Group 2: Female -->
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="gender" id="female">
+          <label class="form-check-label" for="female">Female</label>
+        </div>
+      </div>
+
+      <!-- Checkboxes for Skills -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Skills</label>
+        <!-- HTML checkbox -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="html">
+          <label class="form-check-label" for="html">HTML</label>
+        </div>
+        <!-- CSS checkbox -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="css">
+          <label class="form-check-label" for="css">CSS</label>
+        </div>
+        <!-- JavaScript checkbox -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="js">
+          <label class="form-check-label" for="js">JavaScript</label>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-success mt-3 px-4 py-2">
+        Submit
+        <!-- 'btn' and 'btn-success' style it as a green Bootstrap button -->
+        <!-- 'mt-3' adds spacing above the button -->
+        <!-- 'px-4' adds horizontal padding (1.5rem left/right) -->
+        <!-- 'py-2' adds vertical padding (0.5rem top/bottom) -->
+      </button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

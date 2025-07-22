@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Typography + Spacing</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5"><!-- mt-5 = top margin (large spacing) -->
+
+    <!-- Display heading: display-4 is large heading style; text-primary makes it blue; mb-4 = bottom margin -->
+    <h1 class="display-4 text-primary mb-4">
+      Typography in Bootstrap
+    </h1>
+
+    <!-- Font Size examples -->
+    <p class="fs-1 mb-2">fs-1 (Largest text size) <!-- mb-2 = small bottom margin --></p>
+    <p class="fs-3 mb-2">fs-3 (Medium-large)</p>
+    <p class="fs-5 mb-2">fs-5 (Default size)</p>
+    <p class="fs-6 mb-4">fs-6 (Smallest size) <!-- mb-4 = larger bottom margin --></p>
+
+    <!-- Font Weight examples -->
+    <p class="fw-bold mb-1">fw-bold (Bold text) <!-- mb-1 = small bottom margin --></p>
+    <p class="fw-semibold mb-1">fw-semibold (Semi-bold)</p>
+    <p class="fw-normal mb-1">fw-normal (Regular weight)</p>
+    <p class="fw-light mb-1">fw-light (Light weight)</p>
+    <p class="fw-lighter mb-4">fw-lighter (Thinnest weight)</p>
+
+    <!-- Text Color examples -->
+    <p class="text-primary mb-1">text-primary = Bootstrap blue</p>
+    <p class="text-success mb-1">text-success = green</p>
+    <p class="text-danger mb-1">text-danger = red</p>
+    <p class="text-muted mb-4">text-muted = light gray (for less emphasis)</p>
+
+    <!-- Text Alignment examples -->
+    <p class="text-start mb-1">text-start = left aligned</p>
+    <p class="text-center mb-1">text-center = center aligned</p>
+    <p class="text-end mb-4">text-end = right aligned</p>
+
+    <!-- Special Typography -->
+    <p class="lead mb-2">.lead = larger font, lighter weight</p>
+    <p class="mb-4"><small>small = smaller text, usually for disclaimers</small></p>
+
+    <!-- Text Transform examples -->
+    <p class="text-uppercase mb-1">text-uppercase = ALL CAPS</p>
+    <p class="text-lowercase mb-1">TEXT-LOWERCASE becomes lowercase</p>
+    <p class="text-capitalize mb-4">text-capitalize = First Letter Of Each Word Capitalized</p>
+
+    <!-- Monospace font -->
+    <p class="font-monospace mb-4">font-monospace = fixed-width font (useful for code)</p>
+
+    <!-- Section heading -->
+    <hr>
+    <h5 class="text-secondary mt-4 mb-3">Bootstrap Spacing Utilities</h5>
+
+    <!-- Spacing list explanation -->
+    <ul>
+      <li><code>mb-4</code>: Margin bottom with spacing level 4</li>
+      <li><code>mt-3</code>: Margin top with spacing level 3</li>
+      <li><code>ms-2</code>: Margin start (left in LTR languages)</li>
+      <li><code>me-2</code>: Margin end (right in LTR languages)</li>
+      <li><code>p-3</code>: Padding on all sides</li>
+    </ul>
+
+    <!-- Box with padding -->
+    <p class="p-3 bg-light border">This paragraph has padding on all sides (p-3). Background is light, with a border.</p>
+
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

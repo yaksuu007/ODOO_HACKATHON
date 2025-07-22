@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap Buttons</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- mt-5: Adds top margin to push content down from top -->
+
+    <h2 class="mb-4">Bootstrap Buttons Overview</h2>
+    <!-- mb-4: Adds bottom margin (spacing below heading) -->
+
+    <!-- Basic Colored Buttons -->
+    <h5 class="mb-3">Basic Button Colors</h5>
+    <!-- mb-3: Bottom margin below subheading -->
+
+    <!-- btn-primary: Solid blue button (Bootstrap primary color)
+         mb-2: Adds margin below button (vertical spacing)
+         me-2: Adds margin on the end (right side) for spacing between buttons -->
+    <button class="btn btn-primary mb-2 me-2">Primary</button>
+    <button class="btn btn-secondary mb-2 me-2">Secondary</button>
+    <button class="btn btn-success mb-2 me-2">Success</button>
+    <button class="btn btn-danger mb-2 me-2">Danger</button>
+    <button class="btn btn-warning mb-2 me-2">Warning</button>
+    <button class="btn btn-info mb-2 me-2">Info</button>
+    <button class="btn btn-light mb-2 me-2">Light</button>
+    <button class="btn btn-dark mb-4">Dark</button>
+    <!-- mb-4 on last button: Extra space after this section -->
+
+    <!-- Outline Buttons -->
+    <h5 class="mb-3">Outline Buttons</h5>
+    <!-- btn-outline-* classes: No background, just colored border -->
+
+    <button class="btn btn-outline-primary mb-2 me-2">Primary</button>
+    <button class="btn btn-outline-success mb-2 me-2">Success</button>
+    <button class="btn btn-outline-danger mb-4">Danger</button>
+    <!-- mb-4: Pushes next section down slightly more -->
+
+    <!-- Button Sizes -->
+    <h5 class="mb-3">Button Sizes</h5>
+    <!-- btn-lg: Large button
+         btn-sm: Small button -->
+
+    <button class="btn btn-primary btn-lg mb-2 me-2">Large Button</button>
+    <button class="btn btn-primary btn-sm mb-4">Small Button</button>
+
+    <!-- Block Level Buttons (Full-width) -->
+    <h5 class="mb-3">Block (Full Width) Button</h5>
+    <button class="btn btn-success w-100 mb-4">Full Width Button</button>
+    <!-- w-100: Full width of parent container -->
+
+    <!-- Disabled Buttons -->
+    <h5 class="mb-3">Disabled Buttons</h5>
+    <button class="btn btn-primary me-2" disabled>Disabled</button>
+    <button class="btn btn-outline-secondary" disabled>Disabled Outline</button>
+
+    <hr class="my-5" />
+    <!-- hr: Horizontal rule
+         my-5: Vertical margin top and bottom for separation -->
+
+    <!-- Explanation of utility classes used above -->
+    <h5 class="text-secondary">Utility Classes Explanation</h5>
+    <ul>
+      <li><code>mb-2 / mb-3 / mb-4</code>: Margin bottom (0 to 5 scale, each step = ~0.25rem)</li>
+      <li><code>me-2</code>: Margin end (right in LTR) — separates buttons horizontally</li>
+      <li><code>mt-5</code>: Top margin (used on the outer container to push down from top)</li>
+      <li><code>my-5</code>: Margin top and bottom (used for vertical spacing around elements like `<hr>`)</li>
+      <li><code>w-100</code>: Width 100% — button fills full row</li>
+      <li><code>btn-sm / btn-lg</code>: Controls font size and padding for buttons</li>
+      <li><code>btn-outline-*</code>: Creates bordered buttons without fill color</li>
+    </ul>
+  </div>
+
+  <!-- Bootstrap JS (required for dropdowns, modals, etc.) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap Accordion Example</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="container mt-5 mb-5">
+    <h2 class="text-success mb-4">Bootstrap Accordion Demo</h2>
+    <!-- 'text-success': green color for heading -->
+    <!-- 'mb-4': spacing below heading -->
+
+    <!-- Accordion wrapper -->
+    <div class="accordion" id="faqAccordion">
+      <!-- 'accordion': enables Bootstrap accordion behavior -->
+      <!-- 'id="faqAccordion"': needed for internal targeting of collapse -->
+
+      <!-- Accordion Item 1 -->
+      <div class="accordion-item mb-3">
+        <!-- 'accordion-item': container for one panel -->
+        <h2 class="accordion-header" id="headingOne">
+          <!-- Header of the accordion item -->
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            What is Bootstrap?
+            <!-- 'accordion-button': styled button that controls the collapse -->
+            <!-- 'data-bs-toggle="collapse"': enables toggle action -->
+            <!-- 'data-bs-target="#collapseOne"': links to content -->
+          </button>
+        </h2>
+
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+          <!-- 'collapse show': this panel is open by default -->
+          <!-- 'data-bs-parent': keeps only one panel open at a time -->
+          <div class="accordion-body">
+            Bootstrap is a powerful front-end framework for faster and easier web development.
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Item 2 -->
+      <div class="accordion-item mb-3">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Is Bootstrap responsive?
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes! Bootstrap uses a responsive grid and utility classes to adapt layouts to any screen size.
+          </div>
+        </div>
+      </div>
+
+      <!-- Accordion Item 3 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Can I customize Bootstrap?
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Absolutely! You can customize Bootstrap with Sass, custom classes, or utility overrides.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
